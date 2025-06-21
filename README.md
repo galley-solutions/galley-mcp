@@ -142,8 +142,9 @@ wsl --install
 |----------|-------------|---------|----------|
 | `X_API_KEY` | Galley X-API-KEY authentication | - | * |
 | `GALLEY_AUTH_TOKEN` | Galley Bearer token authentication | - | * |
-| `ENDPOINT` | GraphQL endpoint URL for MCP operations | `https://staging-app.galleysolutions.com/graphql` | No |
-| `INTROSPECT_ENDPOINT` | Schema introspection endpoint | `https://app.galleysolutions.com/graphql` | No |
+| `STAGING` | Use staging environment endpoints | `false` | No |
+| `ENDPOINT` | GraphQL endpoint URL for MCP operations | `https://app.galleysolutions.com/graphql` (prod) or `https://staging-app.galleysolutions.com/graphql` (staging) | No |
+| `INTROSPECT_ENDPOINT` | Schema introspection endpoint | Same as `ENDPOINT` | No |
 | `USER_DIRECTORY` | Additional operations directory to mount | - | No |
 | `APOLLOGRAPHQL_CLIENT_NAME` | Client identification header | `galley-mcp-server@{hostname}` | No |
 | `SCHEMA_OUTPUT` | Schema output file path | `/app/schema.graphql` | No |
@@ -152,6 +153,36 @@ wsl --install
 | `ALLOW_MUTATIONS` | Control mutation permissions: `none`, `explicit`, or `all` | `none` | No |
 
 **Authentication Priority**: `X_API_KEY` takes precedence over `GALLEY_AUTH_TOKEN` if both are provided.
+
+### Environment Modes
+
+The server supports both production and staging environments:
+
+#### Production Mode (Default)
+```bash
+# Uses production endpoints by default
+docker run -i -e X_API_KEY="your_key" public.ecr.aws/o0r1r5q2/galley-mcp:latest
+```
+- **Endpoint**: `https://app.galleysolutions.com/graphql`
+- **Introspection**: `https://app.galleysolutions.com/graphql`
+
+#### Staging Mode
+```bash
+# Enable staging mode
+docker run -i -e X_API_KEY="your_key" -e STAGING=true public.ecr.aws/o0r1r5q2/galley-mcp:latest
+```
+- **Endpoint**: `https://staging-app.galleysolutions.com/graphql`
+- **Introspection**: `https://staging-app.galleysolutions.com/graphql`
+
+#### Custom Endpoints
+```bash
+# Override specific endpoints (takes precedence over STAGING flag)
+docker run -i \
+  -e X_API_KEY="your_key" \
+  -e ENDPOINT="https://custom.galleysolutions.com/graphql" \
+  -e INTROSPECT_ENDPOINT="https://custom-introspect.galleysolutions.com/graphql" \
+  public.ecr.aws/o0r1r5q2/galley-mcp:latest
+```
 
 ### Debug Mode
 
@@ -255,7 +286,7 @@ docker run -i \
 ```bash
 docker run -i \
   -e X_API_KEY="staging_api_key_here" \
-  -e ENDPOINT="https://staging-app.galleysolutions.com/graphql" \
+  -e STAGING=true \
   -e APOLLOGRAPHQL_CLIENT_NAME="staging-server@staging-host" \
   public.ecr.aws/o0r1r5q2/galley-mcp:latest
 ```

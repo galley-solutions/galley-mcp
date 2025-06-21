@@ -7,7 +7,24 @@ export APOLLO_GRAPH_REF="Galley-dtd1yd@current"
 # Default values that can be overridden with environment variables
 GALLEY_AUTH_TOKEN=${GALLEY_AUTH_TOKEN:-""}
 X_API_KEY=${X_API_KEY:-""}
-ENDPOINT=${ENDPOINT:-"https://staging-app.galleysolutions.com/graphql"}
+STAGING=${STAGING:-"false"}
+
+# Set default endpoints based on STAGING flag
+if [ "$STAGING" = "true" ]; then
+    DEFAULT_ENDPOINT="https://staging-app.galleysolutions.com/graphql"
+    DEFAULT_INTROSPECT_ENDPOINT="https://staging-app.galleysolutions.com/graphql"
+else
+    DEFAULT_ENDPOINT="https://app.galleysolutions.com/graphql"
+    DEFAULT_INTROSPECT_ENDPOINT="https://app.galleysolutions.com/graphql"
+fi
+
+# Allow override of endpoints
+ENDPOINT=${ENDPOINT:-"$DEFAULT_ENDPOINT"}
+INTROSPECT_ENDPOINT=${INTROSPECT_ENDPOINT:-"$DEFAULT_INTROSPECT_ENDPOINT"}
+
+# Export INTROSPECT_ENDPOINT so it's available to introspect-schema.sh
+export INTROSPECT_ENDPOINT
+
 OPERATIONS_DIR=${OPERATIONS_DIR:-"/app/operations"}
 USER_DIRECTORY=${USER_DIRECTORY:-""}
 MCP_DEBUG=${MCP_DEBUG:-"false"}
@@ -26,7 +43,9 @@ debug_echo() {
 }
 
 debug_echo "Starting Apollo MCP Server with Galley configuration..."
+debug_echo "Staging mode: $STAGING"
 debug_echo "Endpoint: $ENDPOINT"
+debug_echo "Introspection endpoint: $INTROSPECT_ENDPOINT"
 debug_echo "Operations directory: $OPERATIONS_DIR"
 debug_echo "Graph reference: $APOLLO_GRAPH_REF"
 debug_echo "Client name: $CLIENT_NAME"
