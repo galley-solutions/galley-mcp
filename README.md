@@ -14,7 +14,7 @@ A Model Context Protocol (MCP) server for Galley GraphQL API integration using A
 
 ```bash
 # Option 1: Use pre-built image from public ECR (recommended)
-docker run -i -e X_API_KEY="your_api_key_here" public.ecr.aws/galley-mcp:latest
+docker run -i -e X_API_KEY="your_api_key_here" public.ecr.aws/o0r1r5q2/galley-mcp:latest
 
 # Option 2: Build from source
 # Clone the repository
@@ -35,15 +35,15 @@ docker run -i -e GALLEY_AUTH_TOKEN="your_bearer_token_here" galley-mcp
 
 Pre-built multi-architecture Docker images are available from Amazon ECR Public Gallery:
 
-- **Registry**: `public.ecr.aws/galley-mcp`
-- **Latest**: `public.ecr.aws/galley-mcp:latest`
+- **Registry**: `public.ecr.aws/o0r1r5q2/galley-mcp`
+- **Latest**: `public.ecr.aws/o0r1r5q2/galley-mcp:latest`
 - **Architectures**: `linux/amd64`, `linux/arm64`
-- **Automatic builds**: Images are automatically built and published on every commit to master branch
+- **Automatic releases**: Images are automatically built and published on every commit to master branch
 
 **Version Tags Available:**
 - `latest` - Latest stable version from master branch
-- `v1.0.0`, `v1.1.0`, etc. - Semantic version tags
-- `master` - Latest development version from master branch
+- `v1.0.0`, `v1.1.0`, etc. - Semantic version tags from releases
+- `1.0.0`, `1.1.0`, etc. - Version tags without 'v' prefix
 - `develop` - Latest development version from develop branch
 
 ### What Happens on Startup
@@ -164,10 +164,10 @@ Set `MCP_DEBUG=true` to enable verbose logging and detailed output:
 
 ```bash
 # Enable debug mode
-docker run -i -e X_API_KEY="your_key" -e MCP_DEBUG=true public.ecr.aws/galley-mcp:latest
+docker run -i -e X_API_KEY="your_key" -e MCP_DEBUG=true public.ecr.aws/o0r1r5q2/galley-mcp:latest
 
 # Silent mode (default)
-docker run -i -e X_API_KEY="your_key" public.ecr.aws/galley-mcp:latest
+docker run -i -e X_API_KEY="your_key" public.ecr.aws/o0r1r5q2/galley-mcp:latest
 ```
 
 ### Schema Introspection
@@ -187,10 +187,10 @@ The MCP server supports introspection capabilities that allow clients to explore
 
 ```bash
 # Enable introspection (default)
-docker run -i -e X_API_KEY="your_key" public.ecr.aws/galley-mcp:latest
+docker run -i -e X_API_KEY="your_key" public.ecr.aws/o0r1r5q2/galley-mcp:latest
 
 # Disable introspection for production
-docker run -i -e X_API_KEY="your_key" -e DISABLE_INTROSPECTION=true public.ecr.aws/galley-mcp:latest
+docker run -i -e X_API_KEY="your_key" -e DISABLE_INTROSPECTION=true public.ecr.aws/o0r1r5q2/galley-mcp:latest
 ```
 
 ### Mutation Control
@@ -203,13 +203,13 @@ The MCP server provides fine-grained control over GraphQL mutations through the 
 
 ```bash
 # Read-only mode (default)
-docker run -i -e X_API_KEY="your_key" public.ecr.aws/galley-mcp:latest
+docker run -i -e X_API_KEY="your_key" public.ecr.aws/o0r1r5q2/galley-mcp:latest
 
 # Allow only explicit mutations from operation files
-docker run -i -e X_API_KEY="your_key" -e ALLOW_MUTATIONS=explicit public.ecr.aws/galley-mcp:latest
+docker run -i -e X_API_KEY="your_key" -e ALLOW_MUTATIONS=explicit public.ecr.aws/o0r1r5q2/galley-mcp:latest
 
 # Allow LLM to build mutations (use with caution)
-docker run -i -e X_API_KEY="your_key" -e ALLOW_MUTATIONS=all public.ecr.aws/galley-mcp:latest
+docker run -i -e X_API_KEY="your_key" -e ALLOW_MUTATIONS=all public.ecr.aws/o0r1r5q2/galley-mcp:latest
 ```
 
 **Security Recommendation**: Use `none` or `explicit` in production environments to prevent unintended data modifications.
@@ -225,7 +225,7 @@ docker run -i \
   -e APOLLOGRAPHQL_CLIENT_NAME="production-server@prod-host" \
   -e DISABLE_INTROSPECTION=true \
   -e ALLOW_MUTATIONS=none \
-  public.ecr.aws/galley-mcp:latest
+  public.ecr.aws/o0r1r5q2/galley-mcp:latest
 ```
 
 #### Production Setup (Explicit Mutations Only)
@@ -237,7 +237,7 @@ docker run -i \
   -e APOLLOGRAPHQL_CLIENT_NAME="production-server@prod-host" \
   -e DISABLE_INTROSPECTION=true \
   -e ALLOW_MUTATIONS=explicit \
-  public.ecr.aws/galley-mcp:latest
+  public.ecr.aws/o0r1r5q2/galley-mcp:latest
 ```
 
 #### Development with Custom Operations and Debug
@@ -248,7 +248,7 @@ docker run -i \
   -e MCP_DEBUG=true \
   -e ALLOW_MUTATIONS=all \
   -v ./custom-operations:/custom/operations \
-  public.ecr.aws/galley-mcp:latest
+  public.ecr.aws/o0r1r5q2/galley-mcp:latest
 ```
 
 #### Staging Environment
@@ -257,7 +257,7 @@ docker run -i \
   -e X_API_KEY="staging_api_key_here" \
   -e ENDPOINT="https://staging-app.galleysolutions.com/graphql" \
   -e APOLLOGRAPHQL_CLIENT_NAME="staging-server@staging-host" \
-  public.ecr.aws/galley-mcp:latest
+  public.ecr.aws/o0r1r5q2/galley-mcp:latest
 ```
 
 ## 🔌 MCP Client Integration
@@ -281,7 +281,7 @@ docker run -i \
            "-e", "X_API_KEY=your_api_key_here",
            "-e", "DISABLE_INTROSPECTION=true",
            "-e", "ALLOW_MUTATIONS=none",
-           "public.ecr.aws/galley-mcp:latest"
+           "public.ecr.aws/o0r1r5q2/galley-mcp:latest"
          ],
          "env": {}
        }
@@ -301,7 +301,7 @@ docker run -i \
            "-i",
            "-e", "X_API_KEY=your_api_key_here",
            "-e", "ALLOW_MUTATIONS=explicit",
-           "public.ecr.aws/galley-mcp:latest"
+           "public.ecr.aws/o0r1r5q2/galley-mcp:latest"
          ],
          "env": {}
        }
@@ -325,7 +325,7 @@ docker run -i \
      "args": [
        "run", "--rm", "-i",
        "-e", "X_API_KEY=your_api_key_here",
-       "public.ecr.aws/galley-mcp:latest"
+       "public.ecr.aws/o0r1r5q2/galley-mcp:latest"
      ]
    }
    ```
@@ -353,7 +353,7 @@ docker run -i \
          "args": [
            "run", "--rm", "-i",
            "-e", "X_API_KEY=your_api_key_here",
-           "public.ecr.aws/galley-mcp:latest"
+           "public.ecr.aws/o0r1r5q2/galley-mcp:latest"
          ]
        }
      }
@@ -378,7 +378,7 @@ docker run -i \
   -e X_API_KEY="your_api_key" \
   -e USER_DIRECTORY="/custom" \
   -v ./my-operations:/custom \
-  public.ecr.aws/galley-mcp:latest
+  public.ecr.aws/o0r1r5q2/galley-mcp:latest
 ```
 
 ### Schema Introspection
@@ -405,20 +405,20 @@ Enable debug mode for detailed output and troubleshooting:
 
 ```bash
 # Enable debug mode for verbose logging
-docker run -i -e X_API_KEY="your_api_key" -e MCP_DEBUG=true public.ecr.aws/galley-mcp:latest
+docker run -i -e X_API_KEY="your_api_key" -e MCP_DEBUG=true public.ecr.aws/o0r1r5q2/galley-mcp:latest
 
 # View container logs
 docker logs <container_id>
 
 # Run interactively to see all output
-docker run -it -e X_API_KEY="your_api_key" -e MCP_DEBUG=true public.ecr.aws/galley-mcp:latest
+docker run -it -e X_API_KEY="your_api_key" -e MCP_DEBUG=true public.ecr.aws/o0r1r5q2/galley-mcp:latest
 
 # Test with different endpoints in debug mode
 docker run -i \
   -e X_API_KEY="your_api_key" \
   -e MCP_DEBUG=true \
   -e INTROSPECT_ENDPOINT="https://staging-app.galleysolutions.com/graphql" \
-  public.ecr.aws/galley-mcp:latest
+  public.ecr.aws/o0r1r5q2/galley-mcp:latest
 ```
 
 **Debug Mode Features:**
@@ -449,24 +449,42 @@ galley-mcp/
 
 ## 🔄 CI/CD Pipeline
 
-The project includes automated CI/CD using GitHub Actions:
+The project includes automated CI/CD using GitHub Actions with two specialized workflows:
 
-### Automated Builds
-- **Multi-architecture**: Builds for both `linux/amd64` and `linux/arm64`
-- **Public ECR**: Automatically publishes to Amazon ECR Public Gallery
-- **Version tagging**: Supports semantic versioning and branch-based tags
+### 🚀 Release Workflow (`release.yml`)
+**Triggers:** Push to `master` branch
+
+**What it does:**
+- **Auto-versioning**: Automatically increments patch version from latest tag
+- **GitHub Releases**: Creates release with auto-generated notes  
+- **Multi-architecture builds**: Builds for `linux/amd64` and `linux/arm64`
+- **Multiple Docker tags**: Publishes `latest`, `v1.0.1`, and `1.0.1` tags
+- **Release documentation**: Includes Docker image URLs and commit info
+
+**Example:** Push to master → Creates `v1.0.1` release + publishes Docker images
+
+### 🔧 Build Workflow (`build-and-push.yml`)
+**Triggers:** 
+- Push to `develop` branch
+- Pull requests to `master`
+
+**What it does:**
+- **Development builds**: Publishes `develop` tag for development branch
+- **PR validation**: Builds (but doesn't publish) for pull requests
+- **Multi-architecture**: Supports both `linux/amd64` and `linux/arm64`
 - **Caching**: Uses GitHub Actions cache for faster builds
 
-### Triggers
-- **Push to master**: Builds and publishes with `latest` tag
-- **Push to develop**: Builds and publishes with `develop` tag
-- **Version tags**: Builds and publishes with semantic version tags (`v1.0.0`, etc.)
-- **Pull requests**: Builds for testing (does not publish)
+### Available Docker Tags
+- **`latest`** - Latest stable release from master branch
+- **`v1.0.1`, `1.0.1`** - Semantic version tags from releases
+- **`develop`** - Latest development version from develop branch
 
 ### Repository Setup
 To set up the CI/CD pipeline, configure these GitHub repository secrets:
 - `AWS_ACCESS_KEY_ID`: AWS access key for ECR push permissions
 - `AWS_SECRET_ACCESS_KEY`: AWS secret key for ECR push permissions
+
+**Permissions:** The release workflow needs `contents: write` permission (automatically configured).
 
 The ECR repository needs to be created as a public repository in `us-east-1` region with the name `galley-mcp`.
 
@@ -477,7 +495,7 @@ The ECR repository needs to be created as a public repository in `us-east-1` reg
 #### Authentication Errors
 ```bash
 # Verify your API key is correct
-docker run -i -e X_API_KEY="your_key" public.ecr.aws/galley-mcp:latest
+docker run -i -e X_API_KEY="your_key" public.ecr.aws/o0r1r5q2/galley-mcp:latest
 
 # Check if endpoint is accessible
 curl -H "X-API-KEY: your_key" https://app.galleysolutions.com/graphql
@@ -486,7 +504,7 @@ curl -H "X-API-KEY: your_key" https://app.galleysolutions.com/graphql
 #### Schema Introspection Fails
 ```bash
 # Check network connectivity to introspection endpoint
-docker run --rm -e X_API_KEY="your_key" public.ecr.aws/galley-mcp:latest ping -c 3 app.galleysolutions.com
+docker run --rm -e X_API_KEY="your_key" public.ecr.aws/o0r1r5q2/galley-mcp:latest ping -c 3 app.galleysolutions.com
 
 # Test GraphQL endpoint manually
 curl -X POST -H "Content-Type: application/json" \
@@ -498,21 +516,21 @@ curl -X POST -H "Content-Type: application/json" \
 docker run -i \
   -e X_API_KEY="your_key" \
   -e INTROSPECT_ENDPOINT="https://staging-app.galleysolutions.com/graphql" \
-  public.ecr.aws/galley-mcp:latest
+  public.ecr.aws/o0r1r5q2/galley-mcp:latest
 
 # Verify authentication method
 # Try with Bearer token instead of X-API-KEY
-docker run -i -e GALLEY_AUTH_TOKEN="your_token" public.ecr.aws/galley-mcp:latest
+docker run -i -e GALLEY_AUTH_TOKEN="your_token" public.ecr.aws/o0r1r5q2/galley-mcp:latest
 ```
 
 #### Apollo MCP Server Issues
 ```bash
 # Verify Apollo MCP Server is installed correctly
-docker run --rm public.ecr.aws/galley-mcp:latest which apollo-mcp-server
-docker run --rm public.ecr.aws/galley-mcp:latest apollo-mcp-server --version
+docker run --rm public.ecr.aws/o0r1r5q2/galley-mcp:latest which apollo-mcp-server
+docker run --rm public.ecr.aws/o0r1r5q2/galley-mcp:latest apollo-mcp-server --version
 
 # Check if schema file exists after introspection
-docker run --rm -e X_API_KEY="your_key" public.ecr.aws/galley-mcp:latest ls -la /app/schema.graphql
+docker run --rm -e X_API_KEY="your_key" public.ecr.aws/o0r1r5q2/galley-mcp:latest ls -la /app/schema.graphql
 ```
 
 #### Docker Issues
