@@ -10,7 +10,7 @@ on:
 env:
   ECR_REGISTRY: public.ecr.aws/o0r1r5q2
   ECR_REPOSITORY: galley-mcp
-  AWS_REGION: us-west-2
+  AWS_REGION: us-east-1
 
 jobs:
   build-and-push:
