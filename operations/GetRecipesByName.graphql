@@ -1,0 +1,32 @@
+query GetRecipesByName($name: String!) {
+  viewer {
+    recipeConnection(filters: { name: $name }) {
+      totalCount
+      pageInfo {
+        startIndex
+        endIndex
+        hasNextPage
+        hasPreviousPage
+      }
+      edges {
+        node {
+          id
+          name
+          instructions
+          description
+          allIngredientsWithUsages {
+            ingredient {
+              id
+              name
+            }
+            totalQuantity
+            unit {
+              id
+              name
+            }
+          }
+        }
+      }
+    }
+  }
+}
