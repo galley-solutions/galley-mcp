@@ -26,7 +26,7 @@ INTROSPECT_ENDPOINT=${INTROSPECT_ENDPOINT:-"$DEFAULT_INTROSPECT_ENDPOINT"}
 export INTROSPECT_ENDPOINT
 
 OPERATIONS_DIR=${OPERATIONS_DIR:-"/app/operations"}
-USER_DIRECTORY=${USER_DIRECTORY:-""}
+USER_OPERATIONS_DIR=${USER_OPERATIONS_DIR:-""}
 MCP_DEBUG=${MCP_DEBUG:-"false"}
 DISABLE_INTROSPECTION=${DISABLE_INTROSPECTION:-"false"}
 ALLOW_MUTATIONS=${ALLOW_MUTATIONS:-"none"}
@@ -104,10 +104,10 @@ if [ "$MCP_DEBUG" = "true" ]; then
     APOLLO_ARGS+=(--log DEBUG)
 fi
 
-# Add user directory if specified
-if [ -n "$USER_DIRECTORY" ]; then
-    debug_echo "Adding user directory: $USER_DIRECTORY"
-    APOLLO_ARGS+=(--directory "$USER_DIRECTORY")
+# Add user operations directory if specified
+if [ -n "$USER_OPERATIONS_DIR" ]; then
+    debug_echo "Adding user operations directory: $USER_OPERATIONS_DIR"
+    APOLLO_ARGS+=(--operations "$USER_OPERATIONS_DIR")
 fi
 
 # Add auth header if available
