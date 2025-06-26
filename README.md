@@ -4,6 +4,7 @@ A Model Context Protocol (MCP) server for Galley GraphQL API integration using A
 
 ## 🚀 Quick Start
 
+
 ### Prerequisites
 
 - Docker installed on your system
