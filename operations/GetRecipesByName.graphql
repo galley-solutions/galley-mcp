@@ -21,6 +21,7 @@ query GetRecipesByName($name: String!) {
           id
           name
           description
+          instructions
           yieldUnit {
             id
             name
