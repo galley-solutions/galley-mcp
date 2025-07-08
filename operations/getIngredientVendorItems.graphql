@@ -1,0 +1,25 @@
+query GetIngredientVendorItems($ingredientIds: [String!]!, $locationId: String!) {
+  viewer {
+    ingredientConnection(
+      filters: {
+        id: $ingredientIds
+      }
+      paginationOptions: {
+        startIndex: 0
+        first: 50
+      }
+    ) {
+      edges {
+        node {
+          id
+          name
+          vendorItems(locationId: $locationId) {
+            id
+            name
+            sku
+          }
+        }
+      }
+    }
+  }
+}

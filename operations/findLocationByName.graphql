@@ -1,0 +1,23 @@
+query FindLocationByName($locationName: String!) {
+  viewer {
+    locationConnection(
+      filters: {
+        name: $locationName
+      }
+      paginationOptions: {
+        startIndex: 0
+        first: 10
+      }
+    ) {
+      totalCount
+      edges {
+        node {
+          id
+          name
+          city
+          state
+        }
+      }
+    }
+  }
+}

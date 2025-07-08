@@ -1,6 +1,14 @@
 query GetRecipesByName($name: String!) {
   viewer {
-    recipeConnection(filters: { name: $name }) {
+    recipeConnection(
+      filters: {
+        name: $name
+      }
+      paginationOptions: {
+        startIndex: 0
+        first: 10
+      }
+    ) {
       totalCount
       pageInfo {
         startIndex
@@ -12,18 +20,23 @@ query GetRecipesByName($name: String!) {
         node {
           id
           name
-          instructions
           description
+          yieldUnit {
+            id
+            name
+          }
+          totalYield
+          # Optional: Include basic ingredient info for quick reference
           allIngredientsWithUsages {
             ingredient {
               id
               name
             }
-            totalQuantity
             unit {
               id
               name
             }
+            totalQuantity
           }
         }
       }

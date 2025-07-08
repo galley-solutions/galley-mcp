@@ -1,0 +1,31 @@
+query GetVendorItemsInventory($vendorItemIds: [String!]!, $locationId: String!) {
+  viewer {
+    vendorItemConnection(
+      filters: {
+        id: $vendorItemIds
+      }
+      paginationOptions: {
+        startIndex: 0
+        first: 100
+      }
+    ) {
+      totalCount
+      edges {
+        node {
+          id
+          name
+          sku
+          inventoryItems(locationIds: [$locationId]) {
+            onHand {
+              quantity
+              unit {
+                id
+                name
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

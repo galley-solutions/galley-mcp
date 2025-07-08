@@ -1,0 +1,29 @@
+query GetScaledRecipeTree($recipeId: String!, $locationId: String!, $scaledYield: Float!, $scaledUnitId: String!) {
+  viewer {
+    recipe(id: $recipeId, locationId: $locationId) {
+      id
+      name
+      yieldUnit {
+        id
+        name
+      }
+      totalYield
+      recipeTreeComponents(
+        scaledYield: $scaledYield
+        scaledUnitId: $scaledUnitId
+        levels: [-1]
+      ) {
+        id
+        ingredient {
+          id
+          name
+        }
+        quantity
+        unit {
+          id
+          name
+        }
+      }
+    }
+  }
+}
