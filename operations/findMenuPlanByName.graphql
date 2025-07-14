@@ -1,0 +1,38 @@
+# FindMenuPlanByName.graphql
+# Helper query to find menu plans by name for discovery
+# Purpose: Menu plan discovery when you have a name but need the ID
+
+query FindMenuPlanByName($name: String!) {
+  viewer {
+    menuPlanConnection(
+      filters: { name: $name }
+      paginationOptions: { first: 10 }
+    ) {
+      totalCount
+      edges {
+        node {
+          id
+          name
+          startDate
+          endDate
+          lengthDays
+          dailyHeadcount
+          eventsCount
+          draftEventsCount
+          approvedEventsCount
+          location {
+            id
+            name
+            city
+            state
+          }
+        }
+      }
+    }
+  }
+}
+
+# Example variables:
+# {
+#   "name": "Week Long Plan"
+# }

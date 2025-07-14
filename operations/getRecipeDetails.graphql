@@ -1,0 +1,55 @@
+# GetRecipeDetails.graphql
+# Query to get detailed recipe information for verification
+# Purpose: Recipe verification and detailed analysis
+
+query GetRecipeDetails($recipeIds: [String!]!) {
+  viewer {
+    recipes: recipeConnection(
+      filters: { ids: $recipeIds }
+      paginationOptions: { first: 50 }
+    ) {
+      totalCount
+      edges {
+        node {
+          id
+          name
+          totalYield
+          yieldUnit {
+            id
+            name
+          }
+          instructions
+          description
+          allIngredientsWithUsages {
+            ingredient {
+              id
+              name
+            }
+            unit {
+              id
+              name
+            }
+            totalQuantity
+          }
+          categoryValues {
+            id
+            name
+          }
+          dietaryFlags {
+            id
+            name
+          }
+        }
+      }
+    }
+  }
+}
+
+# Example variables:
+# {
+#   "recipeIds": [
+#     "cmVjaXBlOjEwNjQ0Nw==",
+#     "cmVjaXBlOjU1NTkwNw==",
+#     "cmVjaXBlOjU1NTkwNQ=="
+#   ]
+# }

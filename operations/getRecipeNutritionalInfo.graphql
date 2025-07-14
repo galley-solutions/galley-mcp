@@ -1,0 +1,146 @@
+# Get recipe nutritional information (all nutrients)
+# Description: Retrieves comprehensive nutritional data for a recipe including ALL possible nutrients.
+#              This query works for any company regardless of their enabled nutrients settings.
+#              Filter the results based on company.settings.enabledNutrients after receiving the data.
+# Variables: recipeId (String!), locationId (String!)
+# Usage: 1. Run getCompanyEnabledNutrients to get enabled nutrients
+#        2. Run this query to get all nutritional data
+#        3. Filter/display only the nutrients that are enabled for the company
+# Returns: Recipe details, serving size info, ALL nutritional fields, and dietary flags
+
+query GetRecipeNutritionalInfo($recipeId: String!, $locationId: String!) {
+  viewer {
+    recipe(id: $recipeId, locationId: $locationId) {
+      id
+      name
+      description
+      totalYield
+      yieldUnit {
+        id
+        name
+      }
+      servingSizeQuantity
+      servingSizeUnit {
+        id
+        name
+      }
+      servingsPerContainer
+      allIngredients(locationId: $locationId, includeIgnoredNutrition: false)
+      reconciledNutritionals(locationId: $locationId) {
+        # Core macronutrients - query all, filter based on enabledNutrients
+        caloriesKCal
+        totalFatG
+        saturatedFatG
+        transFatG
+        cholesterolMg
+        sodiumMg
+        carbsG
+        fiberG
+        sugarG
+        addedSugarG
+        proteinG
+        polyunsaturatedFatG
+        monounsaturatedFatG
+        
+        # All vitamins - query all, filter based on enabledNutrients
+        vitaminAMcg
+        vitaminB6Mg
+        vitaminB12Mcg
+        vitaminCMg
+        vitaminDMcg
+        vitaminEMg
+        vitaminKMcg
+        thiaminMg
+        riboflavinMg
+        niacinMg
+        folateMcg
+        biotinMcg
+        pantothenicAcidMg
+        
+        # All minerals - query all, filter based on enabledNutrients
+        calciumMg
+        ironMg
+        phosphorusMg
+        iodineMcg
+        magnesiumMg
+        zincMg
+        seleniumMcg
+        copperMg
+        manganeseMg
+        chromiumMcg
+        molybdenumMcg
+        chlorideMg
+        potassiumMg
+        cholineMg
+        
+        # Other nutrients - query all, filter based on enabledNutrients
+        sugarAlcoholG
+        caffeineMg
+        
+        # Daily Value percentages for all nutrients
+        caloriesPercentDRV
+        totalFatPercentDRV
+        saturatedFatPercentDRV
+        transFatPercentDRV
+        cholesterolPercentDRV
+        sodiumPercentDRV
+        carbsPercentDRV
+        fiberPercentDRV
+        sugarPercentDRV
+        addedSugarPercentDRV
+        
+        # RDI percentages for all nutrients
+        proteinPercentRDI
+        vitaminAPercentRDI
+        vitaminB6PercentRDI
+        vitaminB12PercentRDI
+        vitaminCPercentRDI
+        vitaminDPercentRDI
+        vitaminEPercentRDI
+        vitaminKPercentRDI
+        calciumPercentRDI
+        ironPercentRDI
+        thiaminPercentRDI
+        riboflavinPercentRDI
+        niacinPercentRDI
+        folatePercentRDI
+        biotinPercentRDI
+        pantothenicAcidPercentRDI
+        phosphorusPercentRDI
+        iodinePercentRDI
+        magnesiumPercentRDI
+        zincPercentRDI
+        seleniumPercentRDI
+        copperPercentRDI
+        manganesePercentRDI
+        chromiumPercentRDI
+        molybdenumPercentRDI
+        chloridePercentRDI
+        potassiumPercentRDI
+        cholinePercentRDI
+        sugarAlcoholPercentRDI
+        caffeinePercentRDI
+        polyunsaturatedFatPercentRDI
+        monounsaturatedFatPercentRDI
+      }
+      dietaryFlagsWithUsages(locationId: $locationId) {
+        dietaryFlag {
+          id
+          name
+          shouldShowOnNutritionLabel
+        }
+        ingredientsWithUsages {
+          ingredient {
+            id
+            name
+          }
+          totalQuantity
+          unit {
+            id
+            name
+          }
+        }
+      }
+    }
+  }
+}

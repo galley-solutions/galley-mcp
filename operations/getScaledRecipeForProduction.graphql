@@ -1,0 +1,48 @@
+# GetScaledRecipeForProduction.graphql
+# Query to get scaled recipe components for production planning
+# Purpose: Production scaling calculations
+
+query GetScaledRecipeForProduction(
+  $recipeId: String!
+  $locationId: String!
+  $scaledYield: Float!
+  $scaledUnitId: String!
+) {
+  viewer {
+    recipe(id: $recipeId, locationId: $locationId) {
+      id
+      name
+      totalYield
+      yieldUnit {
+        id
+        name
+      }
+      recipeTreeComponents(
+        scaledYield: $scaledYield
+        scaledUnitId: $scaledUnitId
+        levels: [0, 1, -1]
+      ) {
+        id
+        quantity
+        unit {
+          id
+          name
+        }
+        ingredient {
+          id
+          name
+        }
+      }
+      instructions
+      description
+    }
+  }
+}
+
+# Example variables:
+# {
+#   "recipeId": "cmVjaXBlOjEwNjQ0Nw==",
+#   "locationId": "bG9jYXRpb246MTIz",
+#   "scaledYield": 100,
+#   "scaledUnitId": "dW5pdDo0MzQzNTU="
+# }

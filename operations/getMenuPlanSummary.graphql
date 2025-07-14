@@ -1,0 +1,50 @@
+# GetMenuPlanSummary.graphql
+# Query to get high-level menu plan metrics
+# Purpose: Summary statistics and cost analysis
+
+query GetMenuPlanSummary($menuPlanId: ID!) {
+  viewer {
+    menuPlan(id: $menuPlanId) {
+      id
+      name
+      lengthDays
+      dailyHeadcount
+      budgetCents
+      eventsCount
+      draftEventsCount
+      approvedEventsCount
+      startDate
+      endDate
+      menuPlanSummary {
+        totalCost
+        totalHeadCount
+        totalBudgetConsumedPercentage
+        plateCost
+        weeklyTargetBudget
+        weekSummaries {
+          weekNumber
+          totalCost
+          totalHeadCount
+          plateCost
+        }
+      }
+      location {
+        id
+        name
+        city
+        state
+        type
+      }
+      menuPlanEventGroups {
+        id
+        name
+        position
+      }
+    }
+  }
+}
+
+# Example variables:
+# {
+#   "menuPlanId": "bWVudVBsYW46NTM1Mg=="
+# }

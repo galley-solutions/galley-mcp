@@ -1,0 +1,40 @@
+# GetLocationDetails.graphql
+# Query to get location details for context
+# Purpose: Location context and information
+
+query GetLocationDetails($locationId: String!) {
+  viewer {
+    location(id: $locationId) {
+      id
+      name
+      streetAddress
+      city
+      state
+      zipCode
+      type
+      createdAt
+      updatedAt
+      vendors {
+        id
+        name
+      }
+      vendorGroups {
+        id
+        name
+      }
+      subLocations {
+        id
+        name
+      }
+      defaultSubLocation {
+        id
+        name
+      }
+    }
+  }
+}
+
+# Example variables:
+# {
+#   "locationId": "bG9jYXRpb246MTIz"
+# }

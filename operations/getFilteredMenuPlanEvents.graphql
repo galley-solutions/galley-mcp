@@ -1,0 +1,89 @@
+# GetFilteredMenuPlanEvents.graphql
+# Query to get events filtered by name/status
+# Purpose: Filtered event analysis (e.g., only breakfast events)
+
+query GetFilteredMenuPlanEvents(
+  $menuPlanId: ID!
+  $eventName: String
+  $status: MenuPlanEventStatusEnum
+  $startIndex: Int
+  $first: Int
+) {
+  viewer {
+    menuPlan(id: $menuPlanId) {
+      id
+      name
+      menuPlanEventConnection(
+        filters: {
+          name: $eventName
+          status: $status
+        }
+        paginationOptions: {
+          startIndex: $startIndex
+          first: $first
+        }
+      ) {
+        totalCount
+        edges {
+          node {
+            id
+            name
+            headCount
+            status
+            startTime
+            endTime
+            notes
+            position
+            menuPlanEventItems {
+              id
+              quantity
+              isPerHead
+              position
+              unit {
+                id
+                name
+              }
+              product {
+                id
+                name
+                productItems {
+                  id
+                  recipe {
+                    id
+                    name
+                    totalYield
+                    yieldUnit {
+                      id
+                      name
+                    }
+                  }
+                }
+              }
+              costCents
+              priceCents
+            }
+            location {
+              id
+              name
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+# Example variables:
+# Filter for breakfast events only:
+# {
+#   "menuPlanId": "bWVudVBsYW46NTM1Mg==",
+#   "eventName": "breakfast",
+#   "first": 25
+# }
+#
+# Filter for approved events only:
+# {
+#   "menuPlanId": "bWVudVBsYW46NTM1Mg==",
+#   "status": "approved",
+#   "first": 50
+# }

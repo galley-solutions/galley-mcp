@@ -1,0 +1,65 @@
+# GetProductDetails.graphql
+# Query to get product and recipe information independently
+# Purpose: Product verification and standalone analysis
+
+query GetProductDetails($productIds: [String!]!, $locationId: String) {
+  viewer {
+    productConnection(
+      filters: { ids: $productIds }
+      paginationOptions: { first: 50 }
+    ) {
+      totalCount
+      edges {
+        node {
+          id
+          name
+          productItems {
+            id
+            recipe {
+              id
+              name
+              totalYield
+              yieldUnit {
+                id
+                name
+              }
+              instructions
+              description
+            }
+            ingredient {
+              id
+              name
+            }
+            collection {
+              id
+              name
+            }
+          }
+          costCents(locationId: $locationId)
+          costUnit(locationId: $locationId) {
+            id
+            name
+          }
+          dietaryFlags(locationId: $locationId) {
+            id
+            name
+          }
+          categoryValues {
+            id
+            name
+          }
+        }
+      }
+    }
+  }
+}
+
+# Example variables:
+# {
+#   "productIds": [
+#     "cHJvZHVjdDo1NDUzNTA=",
+#     "cHJvZHVjdDoxMDY5MzI2",
+#     "cHJvZHVjdDoxMDY5MzI0"
+#   ],
+#   "locationId": "bG9jYXRpb246MTIz"
+# }

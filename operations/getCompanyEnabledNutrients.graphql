@@ -1,0 +1,59 @@
+# Get company enabled nutrients
+# Description: Retrieves the company's settings for which nutritional fields are enabled
+# Variables: None
+# Returns: Company ID, name, and boolean flags for each nutrient field indicating if it's enabled
+
+query GetCompanyEnabledNutrients {
+  viewer {
+    company {
+      id
+      name
+      settings {
+        enabledNutrients {
+          caloriesKCal
+          totalFatG
+          saturatedFatG
+          transFatG
+          cholesterolMg
+          sodiumMg
+          carbsG
+          fiberG
+          sugarG
+          addedSugarG
+          proteinG
+          vitaminAMcg
+          vitaminB6Mg
+          vitaminB12Mcg
+          vitaminCMg
+          vitaminDMcg
+          vitaminEMg
+          vitaminKMcg
+          calciumMg
+          ironMg
+          thiaminMg
+          riboflavinMg
+          niacinMg
+          folateMcg
+          biotinMcg
+          pantothenicAcidMg
+          phosphorusMg
+          iodineMcg
+          magnesiumMg
+          zincMg
+          seleniumMcg
+          copperMg
+          manganeseMg
+          chromiumMcg
+          molybdenumMcg
+          chlorideMg
+          potassiumMg
+          cholineMg
+          sugarAlcoholG
+          caffeineMg
+          polyunsaturatedFatG
+          monounsaturatedFatG
+        }
+      }
+    }
+  }
+}

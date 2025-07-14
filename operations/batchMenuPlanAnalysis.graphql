@@ -1,0 +1,93 @@
+# BatchMenuPlanAnalysis.graphql
+# Optimized query for analyzing multiple menu plans
+# Purpose: Batch analysis and comparison of multiple menu plans
+
+query BatchMenuPlanAnalysis($menuPlanIds: [ID!]!, $first: Int) {
+  viewer {
+    menuPlans: menuPlanConnection(
+      filters: { ids: $menuPlanIds }
+      paginationOptions: { first: $first }
+    ) {
+      totalCount
+      edges {
+        node {
+          id
+          name
+          lengthDays
+          dailyHeadcount
+          startDate
+          endDate
+          eventsCount
+          draftEventsCount
+          approvedEventsCount
+          budgetCents
+          location {
+            id
+            name
+            city
+            state
+          }
+          menuPlanEventConnection {
+            totalCount
+            edges {
+              node {
+                id
+                name
+                headCount
+                status
+                startTime
+                endTime
+                menuPlanEventItems {
+                  id
+                  quantity
+                  isPerHead
+                  unit {
+                    id
+                    name
+                  }
+                  product {
+                    id
+                    name
+                    productItems {
+                      id
+                      recipe {
+                        id
+                        name
+                        totalYield
+                        yieldUnit {
+                          id
+                          name
+                        }
+                      }
+                    }
+                  }
+                  costCents
+                  priceCents
+                }
+                location {
+                  id
+                  name
+                }
+              }
+            }
+          }
+          menuPlanSummary {
+            totalCost
+            totalHeadCount
+            plateCost
+          }
+        }
+      }
+    }
+  }
+}
+
+# Example variables:
+# {
+#   "menuPlanIds": [
+#     "bWVudVBsYW46NTM1Mg==",
+#     "bWVudVBsYW46NTM1Mw==",
+#     "bWVudVBsYW46NTM1NA=="
+#   ],
+#   "first": 20
+# }

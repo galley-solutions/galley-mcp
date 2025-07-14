@@ -1,0 +1,95 @@
+# GetCompleteMenuPlanData.graphql
+# Main operation to get all menu plan data including recipe yields
+# Purpose: Primary analysis operation for complete menu plan quantity analysis
+
+query GetCompleteMenuPlanData($menuPlanId: ID!) {
+  viewer {
+    menuPlan(id: $menuPlanId) {
+      id
+      name
+      lengthDays
+      dailyHeadcount
+      startDate
+      endDate
+      eventsCount
+      draftEventsCount
+      approvedEventsCount
+      menuPlanEventConnection {
+        totalCount
+        edges {
+          node {
+            id
+            name
+            headCount
+            status
+            startTime
+            endTime
+            notes
+            position
+            menuPlanEventItems {
+              id
+              quantity
+              isPerHead
+              position
+              unit {
+                id
+                name
+              }
+              product {
+                id
+                name
+                productItems {
+                  id
+                  recipe {
+                    id
+                    name
+                    totalYield
+                    yieldUnit {
+                      id
+                      name
+                    }
+                    instructions
+                    description
+                  }
+                  ingredient {
+                    id
+                    name
+                  }
+                  collection {
+                    id
+                    name
+                  }
+                }
+              }
+              costCents
+              priceCents
+              categoryValues {
+                id
+                name
+              }
+              dietaryFlags {
+                id
+                name
+              }
+            }
+            categoryValues {
+              id
+              name
+            }
+            location {
+              id
+              name
+              city
+              state
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+# Example variables:
+# {
+#   "menuPlanId": "bWVudVBsYW46NTM1Mg=="
+# }
