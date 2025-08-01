@@ -41,6 +41,9 @@ fi
 if [ -n "$X_API_KEY" ]; then
     debug_echo "Using X-API-KEY for introspection"
     ROVER_ARGS+=(--header "X-API-KEY:$X_API_KEY")
+elif [ -n "$X_USER_API_KEY" ]; then
+    debug_echo "Using x-user-api-key for introspection"
+    ROVER_ARGS+=(--header "x-user-api-key:$X_USER_API_KEY")
 elif [ -n "$GALLEY_AUTH_TOKEN" ]; then
     debug_echo "Using Bearer token for introspection"
     ROVER_ARGS+=(--header "Authorization:Bearer $GALLEY_AUTH_TOKEN")

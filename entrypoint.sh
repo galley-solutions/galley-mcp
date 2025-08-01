@@ -7,6 +7,7 @@ export APOLLO_GRAPH_REF="Galley-dtd1yd@current"
 # Default values that can be overridden with environment variables
 GALLEY_AUTH_TOKEN=${GALLEY_AUTH_TOKEN:-""}
 X_API_KEY=${X_API_KEY:-""}
+X_USER_API_KEY=${X_USER_API_KEY:-""}
 STAGING=${STAGING:-"false"}
 
 # Set default endpoints based on STAGING flag
@@ -70,11 +71,14 @@ debug_echo "Schema introspection completed successfully, starting server..."
 if [ -n "$X_API_KEY" ]; then
     debug_echo "Using X-API-KEY authentication"
     AUTH_HEADER="X-API-KEY: $X_API_KEY"
+elif [ -n "$X_USER_API_KEY" ]; then
+    debug_echo "Using x-user-api-key authentication"
+    AUTH_HEADER="x-user-api-key: $X_USER_API_KEY"
 elif [ -n "$GALLEY_AUTH_TOKEN" ]; then
     debug_echo "Using Bearer token authentication"
     AUTH_HEADER="Authorization: Bearer $GALLEY_AUTH_TOKEN"
 else
-    debug_echo "Warning: No authentication token provided. Set either GALLEY_AUTH_TOKEN or X_API_KEY environment variable."
+    debug_echo "Warning: No authentication token provided. Set either GALLEY_AUTH_TOKEN, X_API_KEY, or X_USER_API_KEY environment variable."
     AUTH_HEADER=""
 fi
 

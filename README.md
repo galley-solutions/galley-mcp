@@ -27,6 +27,9 @@ docker build -t galley-mcp .
 # Run with X-API-KEY authentication
 docker run -i -e X_API_KEY="your_api_key_here" galley-mcp
 
+# Or run with x-user-api-key authentication
+docker run -i -e X_USER_API_KEY="your_user_api_key_here" galley-mcp
+
 # Or run with Bearer token authentication
 docker run -i -e GALLEY_AUTH_TOKEN="your_bearer_token_here" galley-mcp
 ```
@@ -141,6 +144,7 @@ wsl --install
 | Variable | Description | Default | Required |
 |----------|-------------|---------|----------|
 | `X_API_KEY` | Galley X-API-KEY authentication | - | * |
+| `X_USER_API_KEY` | Galley x-user-api-key authentication | - | * |
 | `GALLEY_AUTH_TOKEN` | Galley Bearer token authentication | - | * |
 | `STAGING` | Use staging environment endpoints | `false` | No |
 | `ENDPOINT` | GraphQL endpoint URL for MCP operations | `https://app.galleysolutions.com/graphql` (prod) or `https://staging-app.galleysolutions.com/graphql` (staging) | No |
@@ -152,7 +156,7 @@ wsl --install
 | `DISABLE_INTROSPECTION` | Disable introspection capability on MCP server | `false` | No |
 | `ALLOW_MUTATIONS` | Control mutation permissions: `none`, `explicit`, or `all` | `none` | No |
 
-**Authentication Priority**: `X_API_KEY` takes precedence over `GALLEY_AUTH_TOKEN` if both are provided.
+**Authentication Priority**: `X_API_KEY` takes precedence over `X_USER_API_KEY`, which takes precedence over `GALLEY_AUTH_TOKEN` if multiple are provided.
 
 ### Environment Modes
 
