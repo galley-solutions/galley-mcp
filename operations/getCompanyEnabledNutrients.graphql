@@ -9,49 +9,51 @@ query GetCompanyEnabledNutrients {
       id
       name
       settings {
-        enabledNutrients {
-          caloriesKCal
-          totalFatG
-          saturatedFatG
-          transFatG
-          cholesterolMg
-          sodiumMg
-          carbsG
-          fiberG
-          sugarG
-          addedSugarG
-          proteinG
-          vitaminAMcg
-          vitaminB6Mg
-          vitaminB12Mcg
-          vitaminCMg
-          vitaminDMcg
-          vitaminEMg
-          vitaminKMcg
-          calciumMg
-          ironMg
-          thiaminMg
-          riboflavinMg
-          niacinMg
-          folateMcg
-          biotinMcg
-          pantothenicAcidMg
-          phosphorusMg
-          iodineMcg
-          magnesiumMg
-          zincMg
-          seleniumMcg
-          copperMg
-          manganeseMg
-          chromiumMcg
-          molybdenumMcg
-          chlorideMg
-          potassiumMg
-          cholineMg
-          sugarAlcoholG
-          caffeineMg
-          polyunsaturatedFatG
-          monounsaturatedFatG
+        nutrition {
+          enabledNutrients {
+            caloriesKCal
+            totalFatG
+            saturatedFatG
+            transFatG
+            cholesterolMg
+            sodiumMg
+            carbsG
+            fiberG
+            sugarG
+            addedSugarG
+            proteinG
+            vitaminAMcg
+            vitaminB6Mg
+            vitaminB12Mcg
+            vitaminCMg
+            vitaminDMcg
+            vitaminEMg
+            vitaminKMcg
+            calciumMg
+            ironMg
+            thiaminMg
+            riboflavinMg
+            niacinMg
+            folateMcg
+            biotinMcg
+            pantothenicAcidMg
+            phosphorusMg
+            iodineMcg
+            magnesiumMg
+            zincMg
+            seleniumMcg
+            copperMg
+            manganeseMg
+            chromiumMcg
+            molybdenumMcg
+            chlorideMg
+            potassiumMg
+            cholineMg
+            sugarAlcoholG
+            caffeineMg
+            polyunsaturatedFatG
+            monounsaturatedFatG
+          }
         }
       }
     }
