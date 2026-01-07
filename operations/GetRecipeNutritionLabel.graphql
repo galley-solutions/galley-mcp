@@ -1,0 +1,73 @@
+# GetRecipeNutritionLabel.graphql
+# Query to generate FDA-compliant nutrition labels for recipes
+# Purpose: Generate nutrition labels in SVG format with customizable display options
+
+query GetRecipeNutritionLabel(
+  $recipeId: String!
+  $locationId: String!
+  $labelType: LabelType = VERTICAL
+  $allergensList: String
+  $ingredientsList: String
+  $servingSizeQuantity: Float
+  $servingSizeUnit: NutritionLabelServingSizeUnit
+  $servingsPerContainer: Float
+  $showAllergens: Boolean = true
+  $showIngredients: Boolean = true
+  $showProteinDV: Boolean = true
+  $showServingsPerContainer: Boolean = true
+  $showRecipeName: Boolean = true
+) {
+  viewer {
+    recipe(id: $recipeId, locationId: $locationId) {
+      id
+      name
+      description
+      servingSizeQuantity
+      servingSizeUnit {
+        id
+        name
+      }
+      servingsPerContainer
+      nutritionLabel(
+        labelType: $labelType
+        locationId: $locationId
+        allergensList: $allergensList
+        ingredientsList: $ingredientsList
+        servingSizeQuantity: $servingSizeQuantity
+        servingSizeUnit: $servingSizeUnit
+        servingsPerContainer: $servingsPerContainer
+        showAllergens: $showAllergens
+        showIngredients: $showIngredients
+        showProteinDV: $showProteinDV
+        showServingsPerContainer: $showServingsPerContainer
+        showRecipeName: $showRecipeName
+      ) {
+        dataURI
+        svg
+      }
+    }
+  }
+}
+
+# Example Variables:
+# {
+#   "recipeId": "cmVjaXBlOjEwNjQ0Nw==",
+#   "locationId": "bG9jYXRpb246NDc5",
+#   "labelType": "VERTICAL",
+#   "showAllergens": true,
+#   "showIngredients": true,
+#   "showProteinDV": true,
+#   "showServingsPerContainer": true,
+#   "showRecipeName": true
+# }
+
+# labelType options:
+# - VERTICAL (default): Standard FDA vertical format
+# - HORIZONTAL: Horizontal format for space-constrained packaging
+
+# Optional overrides:
+# - allergensList: Custom allergen text (overrides auto-generated)
+# - ingredientsList: Custom ingredients text (overrides auto-generated)
+# - servingSizeQuantity: Override serving size quantity
+# - servingSizeUnit: Override serving size unit (object with id and name)
+# - servingsPerContainer: Override number of servings per container
