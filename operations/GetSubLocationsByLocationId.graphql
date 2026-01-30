@@ -1,0 +1,21 @@
+# GetSubLocationsByLocationId.graphql
+# Query to get sublocations for a location (by location ID)
+# Purpose: Look up existing sublocation IDs when "already exists" during create
+
+query GetSubLocationsByLocationId($locationId: String!) {
+  viewer {
+    location(id: $locationId) {
+      id
+      name
+      subLocations {
+        id
+        name
+      }
+    }
+  }
+}
+
+# Example variables:
+# {
+#   "locationId": "bG9jYXRpb246NDg0MA=="
+# }

@@ -1,0 +1,26 @@
+# CreateSubLocation.graphql
+# Creates a new sublocation within a location
+# Purpose: Sublocation setup
+
+mutation CreateSubLocation($input: CreateSubLocationInput!) {
+  createSubLocation(input: $input) {
+    subLocation {
+      id
+      name
+      location {
+        id
+      }
+    }
+    error {
+      message
+    }
+  }
+}
+
+# Example variables:
+# {
+#   "input": {
+#     "locationId": "bG9jYXRpb246NDg0MA==",
+#     "name": "Freezer 1"
+#   }
+# }

@@ -1,0 +1,34 @@
+# BulkCreateSubLocationItems.graphql
+# Creates multiple sublocation item associations (e.g. vendor items in a sublocation)
+# Purpose: Fill sublocations with vendor items
+
+mutation BulkCreateSubLocationItems($input: BulkCreateSubLocationItemsInput!) {
+  bulkCreateSubLocationItems(input: $input) {
+    subLocationItems {
+      id
+      subLocation {
+        id
+      }
+      vendorItem {
+        id
+      }
+    }
+    error {
+      message
+    }
+  }
+}
+
+# Example variables:
+# {
+#   "input": {
+#     "subLocationItems": [
+#       {
+#         "locationId": "bG9jYXRpb246NDg0MA==",
+#         "subLocationId": "c3ViTG9jYXRpb246MjAxOTk=",
+#         "itemType": "VendorItem",
+#         "itemId": "dmVuZG9ySXRlbToxNzAyNDk5"
+#       }
+#     ]
+#   }
+# }
