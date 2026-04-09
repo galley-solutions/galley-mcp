@@ -5,7 +5,7 @@
 query GetRecipeDetails($recipeIds: [String!]!) {
   viewer {
     recipes: recipeConnection(
-      filters: { ids: $recipeIds }
+      filters: { id: $recipeIds }
       paginationOptions: { first: 50 }
     ) {
       totalCount
@@ -35,9 +35,11 @@ query GetRecipeDetails($recipeIds: [String!]!) {
             id
             name
           }
-          dietaryFlags {
-            id
-            name
+          dietaryFlagsWithUsages {
+            dietaryFlag {
+              id
+              name
+            }
           }
         }
       }
