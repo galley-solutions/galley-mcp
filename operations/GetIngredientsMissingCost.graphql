@@ -1,0 +1,32 @@
+query GetIngredientsMissingCost(
+  $locationId: String
+  $missingCostAt: MissingCostEnum = AllLocations
+  $first: Int = 50
+  $startIndex: Int = 0
+  $orderBy: String
+  $sortDirection: SortDirectionEnum
+) {
+  viewer {
+    ingredientConnection(
+      locationId: $locationId
+      filters: {
+        isMissingCost: true
+        missingCostAt: $missingCostAt
+      }
+      paginationOptions: {
+        first: $first
+        startIndex: $startIndex
+        orderBy: $orderBy
+        sortDirection: $sortDirection
+      }
+    ) {
+      edges {
+        index
+        node {
+          id
+          name
+        }
+      }
+    }
+  }
+}
